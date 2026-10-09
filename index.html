@@ -330,15 +330,15 @@ function build(){
     return runs;
   }
   let h='<thead>';
-  h+='<tr class="h1"><th class="c0 st1" rowspan="3">'+D.cols[0].n+'</th>';
+  h+='<tr class="hdr1"><th class="c0 st1" rowspan="3">'+D.cols[0].n+'</th>';
   runsOf(c=>c.sec).forEach(r=>{
     h+='<th class="st1 sec'+r.c.sec+'" colspan="'+r.n+'">'+D.secNames[r.c.sec]+'</th>';
   });
-  h+='</tr><tr class="h2">';
+  h+='</tr><tr class="hdr2">';
   runsOf(c=>c.sub).forEach(r=>{
     h+='<th class="st2 sec'+r.c.sec+'" colspan="'+r.n+'" title="'+(r.c.sub||'')+'">'+(r.c.sub||'')+'</th>';
   });
-  h+='</tr><tr class="h3">';
+  h+='</tr><tr class="hdr3">';
   dataCols.forEach(c=>{
     nCol++;
     h+='<th class="sec'+c.sec+' st3" title="'+(c.sub||'')+'">'+c.n+'</th>';
@@ -367,7 +367,7 @@ function build(){
 
 document.getElementById('foot').innerHTML =
   '数据来源：轩辕 ARK「高校综合看板数据集」+「有效商户明细_FY26」（10/1–10/8）｜'
-  +'对比基准：6 月全月日均（6/1–6/30，30 天）｜生成时间：2026-10-09 17:51<br>'
+  +'对比基准：6 月全月日均（6/1–6/30，30 天）｜生成时间：2026-10-09 18:27<br>'
   +'说明：看板结构来自「整商高校10月看板（10月1-8日 vs 6月）.xlsx」，本页为只读展示，数值与源表一致。';
 
 build();
