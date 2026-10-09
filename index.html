@@ -92,9 +92,13 @@ table.dt th,table.dt td{padding:4px 9px;border-bottom:1px solid #f1f5f9;border-r
 table.dt thead th{position:sticky;top:0;z-index:3;background:#f8fafc;
   font-size:11.5px;color:var(--tx2);border-bottom:1px solid #dbe2ea}
 /* 三层表头：板块行 / 子板块行 / 指标行，行高固定保证吸附不错位 */
-table.dt thead th.st1{top:0;height:26px;text-align:center;font-weight:700;font-size:12px}
-table.dt thead th.st2{top:26px;height:26px;text-align:center;font-weight:600;font-size:11.5px}
+/* 合并标题左对齐 + 贴左边框：避免跨列太多时标题跑到屏幕外看不见 */
+table.dt thead th.st1{top:0;height:26px;text-align:left;font-weight:700;font-size:12px;
+  padding-left:12px;border-left:2px solid #cbd5e1}
+table.dt thead th.st2{top:26px;height:26px;text-align:left;font-weight:600;font-size:11.5px;
+  padding-left:12px;border-left:2px solid #dbe2ea}
 table.dt thead th.st3{top:52px}
+table.dt thead th.gstart{border-left:2px solid #dbe2ea}
 table.dt thead th.c0.st1{top:0;text-align:left}
 table.dt th.sec0{background:#eef7f5}table.dt th.sec1{background:#eef2fc}table.dt th.sec2{background:#fdf4ea}
 table.dt th.sec0,table.dt th.sec1,table.dt th.sec2{color:#334155}
@@ -339,9 +343,11 @@ function build(){
     h+='<th class="st2 sec'+r.c.sec+'" colspan="'+r.n+'" title="'+(r.c.sub||'')+'">'+(r.c.sub||'')+'</th>';
   });
   h+='</tr><tr class="hdr3">';
+  let psub=null;
   dataCols.forEach(c=>{
     nCol++;
-    h+='<th class="sec'+c.sec+' st3" title="'+(c.sub||'')+'">'+c.n+'</th>';
+    const gs=(c.sub!==psub)?' gstart':''; psub=c.sub;
+    h+='<th class="sec'+c.sec+' st3'+gs+'" title="'+(c.sub||'')+'">'+c.n+'</th>';
   });
   h+='</tr></thead><tbody>';
   rows.forEach(r=>{
@@ -367,7 +373,7 @@ function build(){
 
 document.getElementById('foot').innerHTML =
   '数据来源：轩辕 ARK「高校综合看板数据集」+「有效商户明细_FY26」（10/1–10/8）｜'
-  +'对比基准：6 月全月日均（6/1–6/30，30 天）｜生成时间：2026-10-09 18:27<br>'
+  +'对比基准：6 月全月日均（6/1–6/30，30 天）｜生成时间：2026-10-09 18:35<br>'
   +'说明：看板结构来自「整商高校10月看板（10月1-8日 vs 6月）.xlsx」，本页为只读展示，数值与源表一致。';
 
 build();
